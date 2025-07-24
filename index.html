@@ -121,6 +121,58 @@
     
     <!-- more camera cards will be generated dynamically -->
   </div>
+  <!-- Firebase SDK ও JS কোড শুরু -->
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <script>
+    // তোমার Firebase config এখানে বসাবে
+    const firebaseConfig = {
+      apiKey: "AIzaSyCZXteKXZn-BLio2O1cTTeZqgCKXgHOYHQ",
+      authDomain: "liberty-ef330.firebaseapp.com",
+      databaseURL: "https://liberty-ef330-default-rtdb.firebaseio.com",
+      projectId: "liberty-ef330",
+      storageBucket: "liberty-ef330.appspot.com",
+      messagingSenderId: "829415722731",
+      appId: "1:829415722731:web:e9b300549e4c6ca61eb8ae"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function loadCameras() {
+      const container = document.querySelector('.container');
+      container.innerHTML = 'Loading cameras...';
+
+      db.ref('cameras').on('value', snapshot => {
+        const cameras = snapshot.val();
+        if (!cameras) {
+          container.innerHTML = '<p>No cameras found</p>';
+          return;
+        }
+        container.innerHTML = '';
+        Object.keys(cameras).forEach(camId => {
+          const cam = cameras[camId];
+          const statusClass = cam.status === 'online' ? 'online' : 'offline';
+
+          const card = document.createElement('div');
+          card.className = `camera-card ${statusClass}`;
+
+          card.innerHTML = `
+            <div class="camera-title">${camId}</div>
+            <div class="camera-info">${cam.nvr} | ${cam.location}</div>
+            <div class="status ${statusClass}">${cam.status === 'online' ? '🟢 Online' : '🔴 Offline'}</div>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    loadCameras();
+  </script>
+
 
 </body>
 </html>
