@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CCTV Status Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4f7;
+    }
+
+    header {
+      background-color: #1e293b;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .filters input, .filters select {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: none;
+    }
+
+    .container {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .camera-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-left: 8px solid #22c55e; /* default: green */
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .camera-card.offline {
+      border-left-color: #ef4444;
+    }
+
+    .camera-card:hover {
+      transform: scale(1.02);
+    }
+
+    .camera-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .camera-info {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .status {
+      margin-top: 0.8rem;
+      font-weight: bold;
+    }
+
+    .status.online {
+      color: #22c55e;
+    }
+
+    .status.offline {
+      color: #ef4444;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🎥 CCTV Status Dashboard</div>
+    <div class="filters">
+      <input type="text" placeholder="Search Camera..." />
+      <select>
+        <option value="all">All</option>
+        <option value="online">Online</option>
+        <option value="offline">Offline</option>
+      </select>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Camera cards (sample) -->
+    <div class="camera-card online">
+      <div class="camera-title">CAM-001</div>
+      <div class="camera-info">NVR-1 | Lobby</div>
+      <div class="status online">🟢 Online</div>
+    </div>
+
+    <div class="camera-card offline">
+      <div class="camera-title">CAM-002</div>
+      <div class="camera-info">NVR-1 | Gate 2</div>
+      <div class="status offline">🔴 Offline</div>
+    </div>
+
+    <div class="camera-card online">
+      <div class="camera-title">CAM-003</div>
+      <div class="camera-info">NVR-2 | Parking</div>
+      <div class="status online">🟢 Online</div>
+    </div>
+    
+    <!-- more camera cards will be generated dynamically -->
+  </div>
+
+</body>
+</html>
